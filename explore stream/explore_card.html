@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Details</title>
+    <style>
+        #movie-details img {
+            max-width: 200px;
+            border-radius: 10px;
+        }
+        .movie-info {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Movie Details</h1>
+    <div id="movie-details"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Get the selected movie from localStorage
+            const movie_stream = JSON.parse(localStorage.getItem('selectedMovie'));
+
+            const stream_card = document.getElementById('movie-details');
+
+            if (movie_stream) {
+                // Movie Image
+                const img = document.createElement('img');
+                img.src = movie_stream.title.primaryImage?.imageUrl || 'https://via.placeholder.com/150';
+                img.alt = `${movie_stream.title?.titleText?.text || 'Movie'} Poster`;
+                stream_card.appendChild(img);
+
+                // Movie Title
+                const title = document.createElement('h2');
+                title.textContent = movie_stream?.title?.titleText?.text || 'Unknown Title';
+                stream_card.appendChild(title);
+
+                // Movie Rating
+                const rating = document.createElement('p');
+                const movieRating = movie_stream?.title?.ratingsSummary?.aggregateRating || 'N/A';
+                rating.innerHTML = `Rating: ${movieRating} <span>&#9733;</span>`;
+                stream_card.appendChild(rating);
+
+                // Movie Release Year
+                const releaseYear = document.createElement('p');
+                releaseYear.textContent = `Year: ${movie_stream?.title.releaseYear?.year || 'Unknown'}`;
+                stream_card.appendChild(releaseYear);
+
+                //title type
+                const title_type=document.createElement("p")
+                title_type.innerHTML=`Title Type: ${movie_stream.title.titleType.text}`
+                stream_card.appendChild(title_type)
+            } else {
+                container.innerHTML = "<p>No movie data found. Please go back and select a movie.</p>";
+            }
+        });
+    </script>
+</body>
+</html>
+

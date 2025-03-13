@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Cart Items</h2>
+    <div id="cartData"></div>
+
+    <script>
+      window.addEventListener("DOMContentLoaded", () => {
+        // Get the stored cart data
+        let singleMovie = JSON.parse(localStorage.getItem("items"));
+        let cartData = document.getElementById("cartData");
+
+        // if (allData.length === 0) {
+        //   cartData.innerHTML = "<p>No items in the cart</p>";
+        //   return;
+        // }
+
+        // Display all cart items as clickable cards
+        // allData.forEach((x) => {
+          let movie_fan = createfan(singleMovie);
+          cartData.appendChild(movie_fan);
+
+          // Add click event to each card to save the selected item and display it alone
+          movie_fan.addEventListener("click", () => {
+            // Save the selected card to localStorage
+            localStorage.setItem("selectedItem", JSON.stringify(x));
+            
+            // Remove all previous cards from the page
+            cartData.innerHTML = '';
+
+            // Display only the selected item
+            displaySelectedItem(x);
+
+            // Optionally remove all other items from localStorage
+            // localStorage.removeItem("items");
+          });
+        });
+      // });
+
+      // Function to create the movie card
+      function createfan(mahe) {
+        const card = document.createElement("div");
+        card.classList.add("movie-card");
+
+        // Poster Image
+        const img = document.createElement("img");
+        img.src = mahe.primaryImage?.imageUrl || "https://via.placeholder.com/150"; // Default image if no poster
+        img.alt = `${mahe.titleText?.text || "Movie"} Poster`;
+        img.style.width = "150px";
+        card.appendChild(img);
+
+        // Title
+        const location = document.createElement("h3");
+        location.textContent = `Birth Location: ${mahe.birthLocation.displayableProperty.value.plainText}` || "N/A";
+        card.appendChild(location);
+
+        // height
+        const Height= document.createElement("p");
+        Height.innerHTML = `Height: ${mahe.height.displayableProperty.value.plainText}`
+        card.appendChild(Height);
+
+        const description=document.createElement("p")
+        description.innerHTML=`Bio: ${mahe.nameBio.text.plainText}`
+        card.appendChild(description)
+
+        const proffession = document.createElement("p");
+        // proffession.innerHTML = `${mahe.primaryProfessions.category.text}`;
+        proffession.innerHTML = `${mahe.primaryProfessions.map(x=>x.category.id)}`;
+        card.appendChild(proffession);
+
+        const nameknownfor=document.createElement("p")
+        nameknownfor.innerHTML = `character names: ${mahe.nameKnownFor.edges.map(x=>x.node.credit.characters.map(y=>y.name))}`;
+        card.appendChild(nameknownfor);
+
+        const actor_movies=document.createElement("p")
+        actor_movies.innerHTML=`movies: ${mahe.nameKnownFor.edges.map(x1=>x1.node.knownForTitle.originalTitleText.text)}`;
+        card.appendChild(actor_movies)
+
+        mahe.nameKnownFor?.edges?.forEach(x => {
+        const actor_movie_card = document.createElement("img");
+        actor_movie_card.src = x.node?.knownForTitle?.primaryImage?.imageUrl || "https://via.placeholder.com/150";
+        actor_movie_card.style.width = "150px";
+        card.appendChild(actor_movie_card);
+        });
+
+        const movie_rating=document.createElement("p")
+        movie_rating.innerHTML=`${mahe.nameKnownFor.edges.map(x3=>x3.node.knownForTitle.ratingsSummary.aggregateRating)}<span style="color: gold;">&#9733;</span>`
+        card.appendChild(movie_rating)
+
+        const movie_release_year=document.createElement("p")
+        movie_release_year.innerHTML=`${mahe.nameKnownFor.edges.map(x3=>x3.node.knownForTitle.releaseYear.year)}`
+        card.appendChild(movie_release_year)
+
+        const quotes=document.createElement("p")
+        quotes.innerHTML=`Quote: ${mahe.quotes.edges.map(q=>q.node.displayableArticle.body.plainText)}`;
+        card.appendChild(quotes)
+
+        const trivia=document.createElement("p")
+        trivia.innerHTML=`Trivia: ${mahe.trivia.edges.map(t=>t.node.displayableArticle.body.plainText)}`;
+        card.appendChild(trivia)
+
+        return card;
+      }
+
+      // Function to display the selected item when it's retrieved from localStorage
+      function displaySelectedItem(item) {
+        let cartData = document.getElementById("cartData");
+
+        // Create and display the selected item only
+        const card = createfan(item);
+        cartData.appendChild(card);
+      }
+
+      // Additional logic to handle navigating back and forth (if you want)
+      // If you want to handle navigating back or another functionality, you can check if there's already a selected item in localStorage
+      window.addEventListener("load", () => {
+        let selectedItem = JSON.parse(localStorage.getItem("selectedItem"));
+        
+        if (selectedItem) {
+          displaySelectedItem(selectedItem); // Display only the selected item
+        }
+      });
+    </script>
+    
+</body>
+</html>
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Cart Items</h2>
+    <div id="cartData"></div>
+
+    <script>
+      window.addEventListener("DOMContentLoaded", () => {
+        // Get the stored cart data
+        let singleMovie = JSON.parse(localStorage.getItem("items"));
+        let cartData = document.getElementById("cartData");
+
+        // Check if the data exists
+        if (!singleMovie) {
+          cartData.innerHTML = "<p>No items in the cart</p>";
+          return;
+        }
+
+        // Display the movie card if data is available
+        let movie_fan = createfan(singleMovie);
+        cartData.appendChild(movie_fan);
+
+        // Add click event to the card to save the selected item and display it alone
+        movie_fan.addEventListener("click", () => {
+          // Save the selected card to localStorage
+          localStorage.setItem("selectedItem", JSON.stringify(singleMovie));
+            
+          // Remove all previous cards from the page
+          cartData.innerHTML = '';
+
+          // Display only the selected item
+          displaySelectedItem(singleMovie);
+        });
+      });
+
+      // Function to create the movie card
+      function createfan(mahe) {
+        const card = document.createElement("div");
+        card.classList.add("movie-card");
+
+        // Poster Image
+        const img = document.createElement("img");
+        img.src = mahe.primaryImage?.imageUrl || "https://via.placeholder.com/150"; // Default image if no poster
+        img.alt = `${mahe.titleText?.text || "Movie"} Poster`;
+        img.style.width = "150px";
+        card.appendChild(img);
+
+        // Title
+        const location = document.createElement("h3");
+        location.textContent = mahe.birthLocation.displayableProperty.value.plainText || "Not available"; // Ensure the value is safe to access
+        card.appendChild(location);
+
+
+
+        return card;
+      }
+
+      // Function to display the selected item when it's retrieved from localStorage
+      function displaySelectedItem(item) {
+        let cartData = document.getElementById("cartData");
+
+        // Create and display the selected item only
+        const card = createfan(item);
+        cartData.appendChild(card);
+      }
+
+      // Additional logic to handle navigating back and forth (if you want)
+      window.addEventListener("load", () => {
+        let selectedItem = JSON.parse(localStorage.getItem("selectedItem"));
+        
+        if (selectedItem) {
+          displaySelectedItem(selectedItem); // Display only the selected item
+        }
+      });
+    </script>
+    
+</body>
+</html> -->

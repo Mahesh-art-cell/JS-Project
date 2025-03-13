@@ -1,0 +1,139 @@
+
+
+
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Details</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #121212;
+        color: #fff;
+        padding: 20px;
+      }
+
+      #cartData {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        width: 100%;
+      }
+
+      .movie-card {
+        flex-wrap: wrap;
+        background-color: #1f1f1f;
+        border-radius: 10px;
+        width: 100%;
+        height: 100%;
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      .movie-card img {
+        width: 50%;
+        height: 300px;
+        object-fit: cover;
+        border-radius: 10px;
+      }
+
+      .movie-card h3 {
+        font-size: 1.5em;
+        font-weight: bold;
+        color: #f1c40f;
+        margin: 10px 0;
+      }
+
+      .movie-card p {
+        font-size: 1em;
+        color: #bbb;
+        margin: 5px 0;
+        word-wrap: break-word;
+        white-space: normal;
+        overflow-wrap: break-word;
+        text-align: justify;
+        max-height: none; /* Allows full description to be displayed */
+      }
+    </style>
+</head>
+<body>
+    <div id="cartData"></div>
+
+    <script>
+      window.addEventListener("DOMContentLoaded", () => {
+          let selectedMovie = JSON.parse(localStorage.getItem("selectedItem")); // Retrieve the clicked movie
+          let cartData = document.getElementById("cartData");
+
+          cartData.innerHTML = ''; // Clear previous content
+
+          if (selectedMovie) {
+              let movieCard = createMovieCard(selectedMovie);
+              cartData.appendChild(movieCard);
+          } else {
+              cartData.innerHTML = "<p>No movie selected.</p>";
+          }
+
+          function createMovieCard(movie) {
+              const card = document.createElement("div");
+              card.classList.add("movie-card");
+
+              // Poster Image
+              const img = document.createElement("img");
+              img.src = movie.primaryImage?.imageUrl || "https://via.placeholder.com/150";
+              img.alt = `${movie.titleText?.text || "Movie"} Poster`;
+              card.appendChild(img);
+
+              // Title
+              const title = document.createElement("h3");
+              title.textContent = movie.titleText?.text || "N/A";
+              card.appendChild(title);
+
+              // Rating
+              const rating = document.createElement("p");
+              rating.innerHTML = `Rating: ${movie.ratingsSummary?.aggregateRating || "N/A"} <span style="color: gold;">&#9733;</span>`;
+              card.appendChild(rating);
+
+              // Description
+              const description = document.createElement("p");
+              description.innerHTML = `Description: ${movie.plot?.plotText?.plainText || "N/A"}`;
+              card.appendChild(description);
+
+              // Release Date
+              const releaseDate = document.createElement("p");
+              releaseDate.innerHTML = `Year: ${movie.releaseDate?.day || ''} ${movie.releaseDate?.month || ''} ${movie.releaseDate?.year || ''}`;
+              card.appendChild(releaseDate);
+
+              // Certificate Country
+              const certificateCountry = document.createElement("p");
+              certificateCountry.innerHTML = `Certificate Country: ${movie.titleCertificate?.certificateCountry?.text || "N/A"}`;
+              card.appendChild(certificateCountry);
+
+              // Certificate Rating
+              const certificateRating = document.createElement("p");
+              certificateRating.innerHTML = `Certificate Rating: ${movie.titleCertificate?.rating || "N/A"}`;
+              card.appendChild(certificateRating);
+
+              // Certificate Rating Reason
+              const certificateRatingReason = document.createElement("p");
+              certificateRatingReason.innerHTML = `Rating Reason: ${movie.titleCertificate?.ratingReason || "N/A"}`;
+              card.appendChild(certificateRatingReason);
+
+              return card;
+          }
+      });
+    </script> 
+</body> 
+</html>

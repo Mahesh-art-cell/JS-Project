@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+      /* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #121212;
+  color: white;
+  padding: 20px;
+  overflow-x: hidden;
+}
+
+h2 {
+  text-align: center;
+  color: #ff6347; 
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+
+#cartData {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 20px;
+  width: 100%;
+  height: 300%;
+}
+
+.movie-card {
+  background-color: #1e1e1e;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.7);
+  width: 100%;
+  /* max-width: 900px; */
+  height: 200%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  color: #fff;
+}
+
+.movie-card img {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+  margin-left: 150px;
+}
+
+
+.movie-card h3 {
+  text-align: center;
+}
+
+.movie-card img:hover {
+  transform: scale(1.05);
+}
+
+
+.left {
+  flex: 1;
+  min-width: 250px;
+}
+
+.left h3 {
+  font-size: 1.1rem;
+  margin-top: 10px;
+  color: #ddd;
+  margin-top: 100px;
+}
+
+.left h3 {
+  color: #ff6347; 
+  font-weight: bold;
+}
+
+.left #characterNames ul {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 10px;
+}
+
+.left #characterNames li {
+  color: #ffa500; 
+  font-weight: bold;
+}
+
+.left #characterNames {
+  margin-top: 20px;
+}
+
+
+.right {
+  flex: 2;
+  min-width: 350px;
+}
+
+.right h4 {
+  color: #ff6347;
+  font-size: 1.5rem;
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+.right p {
+  font-size: 1.1rem;
+  color: #ddd;
+  margin-top: 10px;
+  line-height: 1.6;
+}
+
+.right img {
+  width: 150px;
+  margin-right: 10px;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+
+.right img:hover {
+  transform: scale(1.05);
+}
+
+.movie-rating {
+  color: #ffd700;
+}
+
+.movie-release-year {
+  color: #aaa;
+}
+
+.quote,
+.trivia {
+  font-style: italic;
+  color: #ccc;
+}
+
+.quote p,
+.trivia p {
+  margin-bottom: 10px;
+}
+
+
+@media (max-width: 768px) {
+  .movie-card {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .left,
+  .right {
+    min-width: 100%;
+  }
+
+  .left img {
+    width: 100%;
+    height: 250px;
+  }
+
+  .movie-card img {
+    width: 200px;
+    height: 300px;
+  }
+
+  h2 {
+    font-size: 2.5rem;
+  }
+
+  .right h4 {
+    font-size: 1.3rem;
+  }
+
+  .right p {
+    font-size: 1rem;
+  }
+
+  .quote,
+  .trivia {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  h2 {
+    font-size: 1.8rem;
+  }
+
+  .movie-card img {
+    width: 150px;
+    height: 220px;
+  }
+
+  .left h3,
+  .left p,
+  .right p {
+    font-size: 1rem;
+  }
+
+  .quote,
+  .trivia {
+    font-size: 0.9rem;
+  }
+}
+
+
+
+    </style>
+</head>
+<body>
+    <div id="cartData"></div>
+
+    <script>
+      window.addEventListener("DOMContentLoaded", () => {
+    let person = JSON.parse(localStorage.getItem("selectedPerson"));
+    let cartData = document.getElementById("cartData");
+
+    if (!person) {
+        cartData.innerHTML = "<p>No person data available.</p>";
+        return;
+    }
+
+    let card = createPersonDetailsCard(person);
+    cartData.appendChild(card);
+});
+
+function createPersonDetailsCard(person) {
+    const card = document.createElement("div");
+    card.classList.add("movie-card");
+
+    const img = document.createElement("img");
+    img.src = person.primaryImage?.imageUrl || "https://via.placeholder.com/150";
+    img.alt = person.birthName?.text || "No Image";
+    card.appendChild(img);
+
+    const name = document.createElement("h3");
+    name.textContent = `Name: ${person.birthName?.text || "N/A"}`;
+    card.appendChild(name);
+
+    const location = document.createElement("p");
+    location.textContent = `Birth Location: ${person.birthLocation?.displayableProperty?.value?.plainText || "N/A"}`;
+    card.appendChild(location);
+
+    const height = document.createElement("p");
+    height.textContent = `Height: ${person.height?.displayableProperty?.value?.plainText || "N/A"}`;
+    card.appendChild(height);
+
+    const bio = document.createElement("p");
+    bio.textContent = `Bio: ${person.nameBio?.text?.plainText || "No Bio Available"}`;
+    card.appendChild(bio);
+
+    const profession = document.createElement("p");
+    profession.textContent = `Profession: ${person.primaryProfessions?.map(x => x.category.text).join(", ") || "N/A"}`;
+    card.appendChild(profession);
+
+    const knownFor = document.createElement("p");
+    knownFor.textContent = `Known For: ${person.nameKnownFor?.edges?.map(edge => edge.node.knownForTitle?.originalTitleText?.text).join(", ") || "N/A"}`;
+    card.appendChild(knownFor);
+
+    return card;
+}
+
+
+      // Function to display the selected item when it's retrieved from localStorage
+      function displaySelectedItem(item) {
+        let cartData = document.getElementById("cartData");
+
+        // Create and display the selected item only
+        const card = createfan(item);
+        cartData.appendChild(card);
+      }
+
+      // Additional logic to handle navigating back and forth (if you want)
+      // If you want to handle navigating back or another functionality, you can check if there's already a selected item in localStorage
+      window.addEventListener("load", () => {
+        let selectedItem = JSON.parse(localStorage.getItem("selectedItem"));
+        
+        if (selectedItem) {
+          displaySelectedItem(selectedItem); // Display only the selected item
+        }
+      });
+    </script>
+    
+</body>
+</html>
+
+

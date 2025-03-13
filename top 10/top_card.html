@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Cart Items</h2>
+    <div id="cartData"></div>
+
+    <script>
+      window.addEventListener("DOMContentLoaded", () => {
+        // Get the stored cart data
+        let singleMovie = JSON.parse(localStorage.getItem("items"));
+        let cartData = document.getElementById("cartData");
+
+        // if (allData.length === 0) {
+        //   cartData.innerHTML = "<p>No items in the cart</p>";
+        //   return;
+        // }
+
+        // Display all cart items as clickable cards
+        // allData.forEach((x) => {
+          let movie_fan = createfan(singleMovie);
+          cartData.appendChild(movie_fan);
+
+          // Add click event to each card to save the selected item and display it alone
+          movie_fan.addEventListener("click", () => {
+            // Save the selected card to localStorage
+            localStorage.setItem("selectedItem", JSON.stringify(x));
+            
+            // Remove all previous cards from the page
+            cartData.innerHTML = '';
+
+            // Display only the selected item
+            displaySelectedItem(x);
+
+            // Optionally remove all other items from localStorage
+            // localStorage.removeItem("items");
+          });
+        });
+      // });
+
+      // Function to create the movie card
+      function createfan(mahe) {
+        const card = document.createElement("div");
+        card.classList.add("movie-card");
+
+        // Poster Image
+        const img = document.createElement("img");
+        img.src = mahe.primaryImage?.imageUrl || "https://via.placeholder.com/150"; // Default image if no poster
+        img.alt = `${mahe.titleText?.text || "Movie"} Poster`;
+        img.style.width = "300px";
+        card.appendChild(img);
+
+        // Title
+        const title = document.createElement("h3");
+        title.textContent = mahe.titleText?.text || "N/A";
+        card.appendChild(title);
+
+        // Rating
+        const rating = document.createElement("p");
+        rating.innerHTML = `Rating: ${mahe.ratingsSummary?.aggregateRating || "N/A"} <span style="color: gold;">&#9733;</span>`;
+        // rating.style.backgroundColor="red"
+        card.appendChild(rating);
+
+        const description=document.createElement("p")
+        description.innerHTML=`Plot: ${mahe.plot.plotText.plainText}`
+        card.appendChild(description)
+
+        const plot=document.createElement("p")
+        plot.innerHTML=`Release Date: ${mahe.releaseDate.day} ${mahe.releaseDate.month} ${mahe.releaseDate.year}`
+        card.appendChild(plot)
+
+        const certificate_country=document.createElement("p")
+        certificate_country.innerHTML=`Certificate Country: ${mahe.titleCertificate.certificateCountry.text}`
+        card.appendChild(certificate_country)
+
+        const certificate_rating=document.createElement("p")
+        certificate_rating.innerHTML=`Certificate Rating: ${mahe.titleCertificate.rating}`
+        card.appendChild(certificate_rating)
+
+        const certificate_ratingReason=document.createElement("p")
+        certificate_ratingReason.innerHTML=`Rating Reason: ${mahe.titleCertificate.ratingReason}`
+        card.appendChild(certificate_ratingReason)
+
+        return card;
+      }
+
+      // Function to display the selected item when it's retrieved from localStorage
+      function displaySelectedItem(item) {
+        let cartData = document.getElementById("cartData");
+
+        // Create and display the selected item only
+        const card = createfan(item);
+        cartData.appendChild(card);
+      }
+
+      // Additional logic to handle navigating back and forth (if you want)
+      // If you want to handle navigating back or another functionality, you can check if there's already a selected item in localStorage
+      window.addEventListener("load", () => {
+        let selectedItem = JSON.parse(localStorage.getItem("selectedItem"));
+        
+        if (selectedItem) {
+          displaySelectedItem(selectedItem); // Display only the selected item
+        }
+      });
+    </script>
+</body>
+</html>
