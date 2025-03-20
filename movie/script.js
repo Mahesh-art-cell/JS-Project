@@ -363,6 +363,9 @@ console.log("all movies data ",allData)
 
 
 // Function to search movies
+// ✅ Declare isSearching at the top
+let isSearching = false;
+
 function search() {
     const inputTag = document.getElementById('search').value.trim().toLowerCase();
     const allMovies = allData.flat(); 
@@ -378,7 +381,7 @@ function search() {
     isSearching = true;
 
     // Filter the movies based on the search input
-    const filteredMovies = allMovies.flat().filter((movie) => {
+    const filteredMovies = allMovies.filter((movie) => {
         if (movie?.titleText?.text) {
             return movie.titleText.text.toLowerCase().includes(inputTag);
         } else {
