@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="style.css">
 
     <style>
-        /* Global Reset and Base Styles */
+    
         * {
             margin: 0;
             padding: 0;
@@ -23,7 +23,6 @@
             padding: 20px;
         }
 
-        /* Main Container */
         h1 {
             text-align: center;
             font-size: 2.5em;
@@ -47,10 +46,9 @@
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
         }
 
-        /* Movie Image */
+   
         #movie-details img {
             display: block;
-            /* max-width: 50%; */
             width: 200px;
             height: 200px;
             height: auto;
@@ -64,7 +62,7 @@
             transform: scale(1.05);
         }
 
-        /* Movie Information */
+       
         .movie-info {
             margin-top: 20px;
         }
@@ -83,13 +81,12 @@
             text-align: center;
         }
 
-        /* Movie Rating */
         p span {
             color: gold;
             font-size: 1.4em;
         }
 
-        /* Title Type and Additional Information */
+        
         .movie-details-info p {
             font-size: 1.1em;
             color: #ccc;
@@ -101,7 +98,6 @@
             text-transform: uppercase;
         }
 
-        /* Button-like Style for Placeholder */
         .no-movie-data {
             text-align: center;
             font-size: 1.5em;
@@ -109,7 +105,7 @@
             margin-top: 30px;
         }
 
-        /* Responsive Design */
+        
         @media (max-width: 768px) {
             #movie-details {
                 padding: 15px;
@@ -134,12 +130,12 @@
     </style>
 </head>
 <body>
-    <!-- <h1>Movie Details</h1> -->
+    
     <div id="movie-details"></div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Get the selected movie from localStorage
+           
             const movie_stream = JSON.parse(localStorage.getItem('selectedMovie'));
 
             const stream_card = document.getElementById('movie-details');

@@ -6,7 +6,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
 
-    <style>
+    <!-- <style>
       /* Global Styles */
 * {
   margin: 0;
@@ -47,7 +47,7 @@ h2 {
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.7);
   width: 100%;
   /* max-width: 900px; */
-  height: 200%;
+  height: 300%;
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
@@ -219,6 +219,186 @@ h2 {
 
 
 
+    </style> -->
+
+    <style>
+      /* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #121212;
+  color: white;
+  padding: 20px;
+  overflow-x: hidden;
+}
+
+/* Page Heading */
+h2 {
+  text-align: center;
+  color: #ff6347; /* Tomato color */
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+}
+
+/* Container for Cards */
+#cartData {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 20px;
+  width: 100%;
+}
+
+/* Movie/Person Card */
+.movie-card {
+  background-color: #1e1e1e;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.7);
+  width: 100%;
+  height: 100%;
+  max-width: 700px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  color: #fff;
+  text-wrap: wrap ;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover Effect */
+.movie-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.9);
+}
+
+/* Card Image */
+.movie-card img {
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+}
+
+/* Hover Effect on Image */
+.movie-card img:hover {
+  transform: scale(1.05);
+}
+
+/* Name and Heading Styles */
+.movie-card h3 {
+  font-size: 1.5rem;
+  color: #ff6347;
+  text-align: center;
+}
+
+.movie-card p {
+  font-size: 1.1rem;
+  color: #ccc;
+  margin-top: 8px;
+  text-align: center;
+  line-height: 1.5;
+}
+
+/* Styling for Key Info */
+.movie-card p span {
+  font-weight: bold;
+  color: #ffd700; /* Gold color for emphasis */
+}
+
+/* Specific Styling for Professions & Known For */
+.profession,
+.known-for {
+  color: #ffa500; /* Orange shade for details */
+}
+
+/* Movie Rating */
+.movie-rating {
+  color: #ffd700;
+}
+
+/* Quote and Trivia Styles */
+.quote,
+.trivia {
+  font-style: italic;
+  color: #ccc;
+  margin-top: 15px;
+}
+
+/* ===== Media Queries for Responsive Design ===== */
+
+/* Tablet View */
+@media (max-width: 768px) {
+  .movie-card {
+    padding: 15px;
+    max-width: 90%;
+  }
+
+  .movie-card img {
+    width: 180px;
+    height: 180px;
+  }
+
+  h2 {
+    font-size: 2rem;
+  }
+
+  .movie-card h3 {
+    font-size: 1.3rem;
+  }
+
+  .movie-card p {
+    font-size: 1rem;
+  }
+
+  .quote,
+  .trivia {
+    font-size: 0.9rem;
+  }
+}
+
+/* Mobile View */
+@media (max-width: 480px) {
+  body {
+    padding: 10px;
+  }
+
+  h2 {
+    font-size: 1.8rem;
+  }
+
+  .movie-card {
+    padding: 12px;
+    max-width: 100%;
+  }
+
+  .movie-card img {
+    width: 150px;
+    height: 150px;
+  }
+
+  .movie-card h3 {
+    font-size: 1.1rem;
+  }
+
+  .movie-card p {
+    font-size: 0.9rem;
+  }
+
+  .quote,
+  .trivia {
+    font-size: 0.8rem;
+  }
+}
+
     </style>
 </head>
 <body>
@@ -281,6 +461,7 @@ function createPersonDetailsCard(person) {
 
         // Create and display the selected item only
         const card = createfan(item);
+        // const card = createPersonDetailsCard(item);
         cartData.appendChild(card);
       }
 

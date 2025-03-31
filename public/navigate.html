@@ -9,7 +9,7 @@
     <title>Movie Details</title>
     <link rel="stylesheet" href="style.css">
 
-    <style>
+    <!-- <style>
       * {
         margin: 0;
         padding: 0;
@@ -25,21 +25,22 @@
 
       #cartData {
         display: flex;
-        flex-wrap: wrap;
+        /* flex-wrap: wrap; */
         justify-content: center;
         align-items: center;
-        height: 100vh;
-        width: 100%;
+        /* height: 100vh; */
+        /* width: 100%; */
       }
 
       .movie-card {
-        flex-wrap: wrap;
         background-color: #1f1f1f;
         border-radius: 10px;
-        width: 100%;
-        height: 100%;
+        width: 50%;
+        height: 1000px;
         padding: 20px;
         text-align: center;
+        flex-wrap: wrap;
+        text-wrap: wrap;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
       }
 
@@ -65,8 +66,89 @@
         white-space: normal;
         overflow-wrap: break-word;
         text-align: justify;
-        max-height: none; /* Allows full description to be displayed */
-      }
+        max-height: none;
+        text-wrap: wrap;
+      } 
+    </style> -->
+    <style>
+      * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #121212;
+  color: #fff;
+  padding: 20px;
+}
+
+#cartData {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  margin-top: 20px;
+}
+
+.movie-card {
+  background-color: #1f1f1f;
+  border-radius: 10px;
+  width: 60%;
+  height: 100%;
+  /* height: 1500px; */
+  /* max-width: 700px; */
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+/* ✅ Center and Style Image */
+.movie-card img {
+  width: 200px;
+  /* height: 300px; */
+  height: 100;
+  object-fit: fill;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+/* ✅ Title Styling */
+.movie-card h3 {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #f1c40f;
+  margin-bottom: 10px;
+}
+
+/* ✅ Content Styling */
+.movie-card p {
+  font-size: 1em;
+  color: #bbb;
+  margin: 5px 0;
+  text-align: justify;
+  white-space: normal;
+  overflow-wrap: break-word; /* ✅ Ensures long words wrap properly */
+  word-wrap: break-word; /* ✅ Legacy support for older browsers */
+  max-height: none;
+}
+
+/* ✅ Flex Wrapper for Content */
+.movie-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  width: 100%;
+  padding: 10px;
+}
+
     </style>
 </head>
 <body>
@@ -106,11 +188,6 @@
               rating.innerHTML = `Rating: ${movie.ratingsSummary?.aggregateRating || "N/A"} <span style="color: gold;">&#9733;</span>`;
               card.appendChild(rating);
 
-              // Description
-              const description = document.createElement("p");
-              description.innerHTML = `Description: ${movie.plot?.plotText?.plainText || "N/A"}`;
-              card.appendChild(description);
-
               // Release Date
               const releaseDate = document.createElement("p");
               releaseDate.innerHTML = `Year: ${movie.releaseDate?.day || ''} ${movie.releaseDate?.month || ''} ${movie.releaseDate?.year || ''}`;
@@ -130,6 +207,11 @@
               const certificateRatingReason = document.createElement("p");
               certificateRatingReason.innerHTML = `Rating Reason: ${movie.titleCertificate?.ratingReason || "N/A"}`;
               card.appendChild(certificateRatingReason);
+
+              // Description
+              // const description = document.createElement("p");
+              // description.innerHTML = `Description: ${movie.plot?.plotText?.plainText || "N/A"}`;
+              // card.appendChild(description);
 
               return card;
           }
