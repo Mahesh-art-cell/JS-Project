@@ -385,6 +385,18 @@
     #stream-provider-list {
       grid-template-columns: repeat(2, 1fr); 
     }
+
+    #top10-results .movie-card{
+      width: 200px;
+    }
+    #top10-results{
+      /* margin-left: 100px; */
+      justify-content: center;
+    }
+
+    #top10-results .movie-card img{
+      object-fit: contain;
+    }
   } 
   
   /* Small Devices (landscape phones, 576px and up) */
