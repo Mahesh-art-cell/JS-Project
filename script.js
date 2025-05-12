@@ -1,5 +1,4 @@
 
-
 // ✅ Global Data Storage for All Movies
 let allData = [];
 let isSearching = false;
