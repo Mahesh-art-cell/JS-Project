@@ -1,0 +1,176 @@
+
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Details</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+    
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #1e1e1e;
+            color: #fff;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 40px;
+            color: #f1f1f1;
+        }
+
+        #movie-details {
+            max-width: 300px;
+            height: 550px;
+            margin: 0 auto;
+            background-color: #333;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        #movie-details:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+        }
+
+   
+        #movie-details img {
+            display: block;
+            width: 200px;
+            height: 200px;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            margin: 0 auto 20px;
+            transition: transform 0.3s ease;
+        }
+
+        #movie-details img:hover {
+            transform: scale(1.05);
+        }
+
+       
+        .movie-info {
+            margin-top: 20px;
+        }
+
+        h2 {
+            font-size: 1.4em;
+            margin-bottom: 10px;
+            text-align: center;
+            color: #f1f1f1;
+            text-transform: capitalize;
+        }
+
+        p {
+            font-size: 1.2em;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        p span {
+            color: gold;
+            font-size: 1.4em;
+        }
+
+        
+        .movie-details-info p {
+            font-size: 1.1em;
+            color: #ccc;
+            text-align: center;
+        }
+
+        .movie-details-info p strong {
+            color: #f1f1f1;
+            text-transform: uppercase;
+        }
+
+        .no-movie-data {
+            text-align: center;
+            font-size: 1.5em;
+            color: #d9534f;
+            margin-top: 30px;
+        }
+
+        
+        @media (max-width: 768px) {
+            #movie-details {
+                padding: 15px;
+            }
+
+            #movie-details img {
+                max-width: 80%;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            h2 {
+                font-size: 1.5em;
+            }
+
+            p {
+                font-size: 1.1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="movie-details"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+           
+            const movie_stream = JSON.parse(localStorage.getItem('selectedMovie'));
+
+            const stream_card = document.getElementById('movie-details');
+
+            if (movie_stream) {
+                // Movie Image
+                const img = document.createElement('img');
+                img.src = movie_stream.title.primaryImage?.imageUrl || 'https://via.placeholder.com/150';
+                img.alt = `${movie_stream.title?.titleText?.text || 'Movie'} Poster`;
+                stream_card.appendChild(img);
+
+                // Movie Title
+                const title = document.createElement('h2');
+                title.textContent = movie_stream?.title?.titleText?.text || 'Unknown Title';
+                stream_card.appendChild(title);
+
+                // Movie Rating
+                const rating = document.createElement('p');
+                const movieRating = movie_stream?.title?.ratingsSummary?.aggregateRating || 'N/A';
+                rating.innerHTML = `Rating: ${movieRating} <span>&#9733;</span>`;
+                stream_card.appendChild(rating);
+
+                // Movie Release Year
+                const releaseYear = document.createElement('p');
+                releaseYear.textContent = `Year: ${movie_stream?.title.releaseYear?.year || 'Unknown'}`;
+                stream_card.appendChild(releaseYear);
+
+                // Title Type
+                const title_type = document.createElement("p");
+                title_type.innerHTML = `Title Type: ${movie_stream.title.titleType.text || 'Unknown'}`;
+                stream_card.appendChild(title_type);
+
+            } else {
+                stream_card.innerHTML = "<p class='no-movie-data'>No movie data found. Please go back and select a movie.</p>";
+            }
+        });
+    </script>
+</body>
+</html>

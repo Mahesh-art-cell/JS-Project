@@ -1,0 +1,253 @@
+
+
+
+
+<!-- 
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Details</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #141414;
+            color: white;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        h2 {
+            text-align: center;
+            color: #ff1f1f;
+        }
+        #cartData {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 90%;
+            max-width: 800px;
+        }
+        .movie-card {
+            background-color: #2b2b2b;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .movie-card img {
+            width: 300px;
+            height: 350px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        .movie-card h3 {
+            font-size: 1.6em;
+            margin-bottom: 10px;
+        }
+        .movie-card p {
+            font-size: 1.2em;
+            color: #ccc;
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <h2>Movie Details</h2>
+    <div id="cartData"></div>
+
+    <script>
+        window.addEventListener("DOMContentLoaded", () => {
+            let selectedMovie = JSON.parse(localStorage.getItem("selectedItem")); // Load selected movie
+            let cartData = document.getElementById("cartData");
+
+            if (!selectedMovie) {
+                cartData.innerHTML = "<p style='color: #fff;'>No movie selected.</p>";
+                return;
+            }
+
+            // Clear previous content and display only the selected movie
+            cartData.innerHTML = "";
+            let movieCard = createMovieDetails(selectedMovie);
+            cartData.appendChild(movieCard);
+        });
+
+        // Function to create movie details card
+        function createMovieDetails(movie) {
+            const card = document.createElement("div");
+            card.classList.add("movie-card");
+
+            // Poster Image
+            const img = document.createElement("img");
+            img.src = movie.primaryImage?.imageUrl || "https://via.placeholder.com/150";
+            img.alt = `${movie.titleText?.text || "Movie"} Poster`;
+            card.appendChild(img);
+
+            // Title
+            const title = document.createElement("h3");
+            title.textContent = movie.titleText?.text || "N/A";
+            card.appendChild(title);
+
+            // Rating
+            const rating = document.createElement("p");
+            rating.innerHTML = `Rating: ${movie.ratingsSummary?.aggregateRating || 'N/A'} <span style="color: gold;">&#9733;</span>`;
+            card.appendChild(rating);
+
+            // Description
+            const description = document.createElement("p");
+            description.innerHTML = `Plot: ${movie.plot?.plotText?.plainText || "No description available"}`;
+            card.appendChild(description);
+
+            // Release Date
+            const releaseDate = document.createElement("p");
+            releaseDate.innerHTML = `Release Date: ${movie.releaseDate?.day || "N/A"} ${movie.releaseDate?.month || ""} ${movie.releaseDate?.year || ""}`;
+            card.appendChild(releaseDate);
+
+            // Certificate
+            const certificate = document.createElement("p");
+            certificate.innerHTML = `Certificate: ${movie.titleCertificate?.rating || "N/A"}`;
+            card.appendChild(certificate);
+
+            return card;
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+ -->
+
+
+
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Details</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #141414;
+            color: white;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        h2 {
+            text-align: center;
+            color: #ff1f1f;
+        }
+        #cartData {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 90%;
+            max-width: 800px;
+        }
+        .movie-card {
+            width: 100%;
+            height: 100%;
+            background-color: #2b2b2b;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .movie-card img {
+            width: 300px;
+            height: 350px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        .movie-card h3 {
+            font-size: 1.6em;
+            margin-bottom: 10px;
+        }
+        .movie-card p {
+            font-size: 1.2em;
+            color: #ccc;
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <h2>Movie Details</h2>
+    <div id="cartData"></div>
+
+    <script>
+        window.addEventListener("DOMContentLoaded", () => {
+            let selectedMovie = JSON.parse(localStorage.getItem("selectedItem")); // Load selected movie
+            let cartData = document.getElementById("cartData");
+
+            if (!selectedMovie) {
+                cartData.innerHTML = "<p style='color: #fff;'>No movie selected.</p>";
+                return;
+            }
+
+            // Display only the selected movie
+            cartData.innerHTML = "";
+            let movieCard = createMovieDetails(selectedMovie);
+            cartData.appendChild(movieCard);
+        });
+
+        // Function to create movie details card
+        function createMovieDetails(movie) {
+            const card = document.createElement("div");
+            card.classList.add("movie-card");
+
+            // Poster Image
+            const img = document.createElement("img");
+            img.src = movie.primaryImage?.imageUrl || "https://via.placeholder.com/150";
+            img.alt = `${movie.titleText?.text || "Movie"} Poster`;
+            card.appendChild(img);
+
+            // Title
+            const title = document.createElement("h3");
+            title.textContent = movie.titleText?.text || "N/A";
+            card.appendChild(title);
+
+            // Rating
+            const rating = document.createElement("p");
+            rating.innerHTML = `Rating: ${movie.ratingsSummary?.aggregateRating || 'N/A'} <span style="color: gold;">&#9733;</span>`;
+            card.appendChild(rating);
+
+            // Release Date
+            const releaseDate = document.createElement("p");
+            releaseDate.innerHTML = `Release Date: ${movie.releaseDate?.day || "N/A"} ${movie.releaseDate?.month || ""} ${movie.releaseDate?.year || ""}`;
+            card.appendChild(releaseDate);
+
+            return card;
+        }
+    </script>
+</body>
+</html>
