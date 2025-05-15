@@ -4,10 +4,10 @@ let allData = [];
 let isSearching = false;
 
 // ✅ API URLs and Options
-const url =  'https://imdb188.p.rapidapi.com/api/v1/getWeekTop10';;
-const url1 = 'https://imdb188.p.rapidapi.com/api/v1/getFanFavorites?country=US';;
-const apiUrl =  'https://imdb188.p.rapidapi.com/api/v1/getWhatsStreaming?country=US';;
-const url3 =   'https://imdb188.p.rapidapi.com/api/v1/getBornOn?month=01&day=01';;
+const url =  'https://imdb188.p.rapidapi.com/api/v1/getWeekTop10';
+const url1 = 'https://imdb188.p.rapidapi.com/api/v1/getFanFavorites?country=US';
+const apiUrl =  'https://imdb188.p.rapidapi.com/api/v1/getWhatsStreaming?country=US';
+const url3 =   'https://imdb188.p.rapidapi.com/api/v1/getBornOn?month=01&day=01';
 const options = {
 	method: 'GET',
 	headers: {
