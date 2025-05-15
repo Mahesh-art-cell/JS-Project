@@ -4,17 +4,18 @@ let allData = [];
 let isSearching = false;
 
 // ✅ API URLs and Options
-const url =  'https://imdb188.p.rapidapi.com/api/v1/getWeekTop10';
-const url1 ='https://imdb188.p.rapidapi.com/api/v1/getFanFavorites?country=US';
-const apiUrl =  'https://imdb188.p.rapidapi.com/api/v1/getWhatsStreaming?country=US';
-const url3 =   'https://imdb188.p.rapidapi.com/api/v1/getBornOn?month=01&day=01';
+const url =  'https://imdb188.p.rapidapi.com/api/v1/getWeekTop10';;
+const url1 = 'https://imdb188.p.rapidapi.com/api/v1/getFanFavorites?country=US';;
+const apiUrl =  'https://imdb188.p.rapidapi.com/api/v1/getWhatsStreaming?country=US';;
+const url3 =   'https://imdb188.p.rapidapi.com/api/v1/getBornOn?month=01&day=01';;
 const options = {
 	method: 'GET',
 	headers: {
-		'x-rapidapi-key': '7788a6def2msh544c1564f124410p152b71jsndc3ad77daab5',
+		'x-rapidapi-key': 'd2f2585073mshc36a456cd7e8d4dp1d1959jsn71214d8f0934',
 		'x-rapidapi-host': 'imdb188.p.rapidapi.com'
 	}
 };
+
 
 
 // ✅ Fetch Top 10 Movies
